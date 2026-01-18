@@ -1,4 +1,4 @@
-import type { TrainingConfig, Scale, BarreOption } from '../types';
+import type { TrainingConfig, Scale, BarreOption } from '../../types';
 import './Configuration.css';
 
 interface ConfigurationProps {

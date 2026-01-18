@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import type { TrainingConfig, SavedConfig, Chord } from '../types';
+import type { TrainingConfig, SavedConfig, Chord } from '../../types';
 import './AdvancedConfiguration.css';
 
 interface AdvancedConfigurationProps {

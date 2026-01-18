@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, useMemo } from 'react';
-import type { Chord, TrainingConfig } from '../types';
-import { getChordsByConfig } from '../chordData';
+import type { Chord, TrainingConfig } from '../../types';
+import { getChordsByConfig } from '../../chordData';
 import './Training.css';
 
 interface TrainingProps {

@@ -1,4 +1,4 @@
-import type { Chord } from '../types';
+import type { Chord } from '../../types';
 import './ChordList.css';
 
 interface ChordListProps {

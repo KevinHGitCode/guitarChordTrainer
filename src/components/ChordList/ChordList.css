@@ -1,7 +1,6 @@
 .chord-list-container {
   flex: 1;
   padding: 2rem;
-  overflow-y: auto;
 }
 
 .chord-list-title {
