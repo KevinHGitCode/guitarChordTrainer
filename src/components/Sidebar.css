@@ -1,0 +1,39 @@
+.sidebar {
+  width: 250px;
+  background-color: #1a1a1a;
+  border-right: 2px solid #333;
+  padding: 1rem;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.nav-button {
+  padding: 1rem;
+  background-color: #2a2a2a;
+  border: 2px solid #333;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: left;
+}
+
+.nav-button:hover {
+  background-color: #3a3a3a;
+  border-color: #555;
+}
+
+.nav-button.active {
+  background-color: #4a2a00;
+  border-color: #8b5a00;
+  color: #ffb366;
+}
+
