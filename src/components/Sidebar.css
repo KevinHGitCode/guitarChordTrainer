@@ -6,12 +6,48 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  transition: width 0.3s ease;
+  position: relative;
+}
+
+.sidebar.collapsed {
+  width: 50px;
+  padding: 1rem 0.5rem;
+}
+
+.sidebar-toggle {
+  position: absolute;
+  top: 1rem;
+  right: 0.5rem;
+  width: 30px;
+  height: 30px;
+  background-color: #2a2a2a;
+  border: 2px solid #444;
+  border-radius: 4px;
+  color: #fff;
+  font-size: 0.9rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  z-index: 10;
+}
+
+.sidebar-toggle:hover {
+  background-color: #3a3a3a;
+  border-color: #666;
+}
+
+.sidebar.collapsed .sidebar-toggle {
+  right: 0.5rem;
 }
 
 .sidebar-nav {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  margin-top: 2.5rem;
 }
 
 .nav-button {

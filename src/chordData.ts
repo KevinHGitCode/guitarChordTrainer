@@ -99,7 +99,7 @@ export const chords: Chord[] = [
     displayName: 'Do♯ Menor (Cejilla)',
     scale: 'Menor',
     hasBarre: true,
-    imageUrl: 'https://commons.wikimedia.org/wiki/Special:FilePath/C_sharp_(D_flat)_minor_chord_for_guitar.svg'
+    imageUrl: 'https://commons.wikimedia.org/wiki/Special:FilePath/C_sharp_%28D_flat%29_minor_chord_for_guitar_(open).svg'
   },
   {
     name: 'Dm',

@@ -12,6 +12,7 @@ type Mode = 'training' | 'chordList';
 
 function App() {
   const [mode, setMode] = useState<Mode>('training');
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [config, setConfig] = useState<TrainingConfig>({
     scale: 'Mayor',
     barreOption: 'Con cejilla',
@@ -26,11 +27,17 @@ function App() {
       </header>
 
       <div className="app-content">
-        <Sidebar currentMode={mode} onModeChange={setMode} />
+        <Sidebar 
+          currentMode={mode} 
+          onModeChange={setMode}
+          collapsed={sidebarCollapsed}
+          onToggleCollapse={() => setSidebarCollapsed(!sidebarCollapsed)}
+        />
         
         <div className="main-panel">
           {mode === 'training' ? (
             <div className="training-panel">
+              <Training config={config} />
               <div className="config-panel">
                 <Configuration config={config} onConfigChange={setConfig} />
                 <AdvancedConfiguration
@@ -39,7 +46,6 @@ function App() {
                   chords={chords}
                 />
               </div>
-              <Training config={config} />
             </div>
           ) : (
             <ChordList chords={chords} scale={config.scale} />
