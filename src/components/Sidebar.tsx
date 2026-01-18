@@ -1,6 +1,6 @@
 import './Sidebar.css';
 
-type Mode = 'training' | 'chordList';
+type Mode = 'training' | 'chordList' | 'history' | 'help';
 
 interface SidebarProps {
   currentMode: Mode;
@@ -30,7 +30,23 @@ export default function Sidebar({ currentMode, onModeChange, collapsed, onToggle
           <img src="https://api.iconify.design/heroicons:document-text-solid.svg?color=currentColor" alt="chord list" className="nav-icon" />
           <span>Lista de Acordes</span>
         </button>
+        <button
+          className={`nav-button ${currentMode === 'history' ? 'active' : ''}`}
+          onClick={() => onModeChange('history')}
+        >
+          <img src="https://api.iconify.design/heroicons:chart-bar-solid.svg?color=currentColor" alt="history" className="nav-icon" />
+          <span>Historial</span>
+        </button>
       </nav>
+      <div className={`sidebar-footer ${collapsed ? 'collapsed' : ''}`}>
+        <button
+          className={`nav-button footer-button ${currentMode === 'help' ? 'active' : ''}`}
+          onClick={() => onModeChange('help')}
+        >
+          <img src="https://api.iconify.design/heroicons:question-mark-circle-solid.svg?color=currentColor" alt="help" className="nav-icon" />
+          <span>Ayuda</span>
+        </button>
+      </div>
     </div>
   );
 }

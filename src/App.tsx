@@ -6,10 +6,12 @@ import ChordList from './components/ChordList';
 import Configuration from './components/Configuration';
 import AdvancedConfiguration from './components/AdvancedConfiguration';
 import TrainingStats from './components/TrainingStats';
+import TrainingHistory from './components/TrainingHistory';
+import Help from './components/Help';
 import { chords } from './chordData';
 import './App.css';
 
-type Mode = 'training' | 'chordList';
+type Mode = 'training' | 'chordList' | 'history' | 'help';
 
 function App() {
   const [mode, setMode] = useState<Mode>('training');
@@ -26,6 +28,22 @@ function App() {
     setChordCount(count);
     setPracticeTime(time);
   }, []);
+
+  const saveTrainingSession = useCallback((chordCount: number, practiceTimeSeconds: number) => {
+    if (chordCount === 0 && practiceTimeSeconds === 0) return; // Don't save empty sessions
+    
+    const sessions = JSON.parse(localStorage.getItem('trainingSessions') || '[]');
+    const newSession = {
+      id: Date.now().toString(),
+      date: new Date().toISOString(),
+      chordCount,
+      practiceTime: practiceTimeSeconds,
+      scale: config.scale,
+      difficulty: config.barreOption
+    };
+    sessions.unshift(newSession); // Add to beginning
+    localStorage.setItem('trainingSessions', JSON.stringify(sessions));
+  }, [config.scale, config.barreOption]);
 
   return (
     <div className="app">
@@ -45,7 +63,11 @@ function App() {
         <div className="main-panel">
           {mode === 'training' ? (
             <div className="training-panel">
-              <Training config={config} onStatsChange={handleStatsChange} />
+              <Training 
+                config={config} 
+                onStatsChange={handleStatsChange}
+                onSaveSession={saveTrainingSession}
+              />
               <div className="config-panel">
                 <TrainingStats chordCount={chordCount} practiceTime={practiceTime} />
                 <Configuration config={config} onConfigChange={setConfig} />
@@ -56,8 +78,12 @@ function App() {
                 />
               </div>
             </div>
-          ) : (
+          ) : mode === 'chordList' ? (
             <ChordList chords={chords} scale={config.scale} />
+          ) : mode === 'history' ? (
+            <TrainingHistory />
+          ) : (
+            <Help />
           )}
         </div>
       </div>

@@ -6,9 +6,10 @@ import './Training.css';
 interface TrainingProps {
   config: TrainingConfig;
   onStatsChange: (chordCount: number, practiceTime: string) => void;
+  onSaveSession?: (chordCount: number, practiceTimeSeconds: number) => void;
 }
 
-export default function Training({ config, onStatsChange }: TrainingProps) {
+export default function Training({ config, onStatsChange, onSaveSession }: TrainingProps) {
   const chords = useMemo<Chord[]>(() => 
     getChordsByConfig(config.scale, config.barreOption, config.selectedChords),
     [config.scale, config.barreOption, config.selectedChords]
@@ -67,16 +68,6 @@ export default function Training({ config, onStatsChange }: TrainingProps) {
     }
   }, [chords]);
 
-  const formatTime = (seconds: number): string => {
-    const hours = Math.floor(seconds / 3600);
-    const minutes = Math.floor((seconds % 3600) / 60);
-    const secs = seconds % 60;
-    if (hours > 0) {
-      return `${hours}:${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-    }
-    return `${minutes}:${secs.toString().padStart(2, '0')}`;
-  };
-
   // Update stats in parent
   useEffect(() => {
     const hours = Math.floor(practiceTime / 3600);
@@ -89,6 +80,11 @@ export default function Training({ config, onStatsChange }: TrainingProps) {
   }, [chordCount, practiceTime, onStatsChange]);
 
   const restart = () => {
+    // Save session before resetting if there's progress
+    if (onSaveSession && (chordCount > 0 || practiceTime > 0)) {
+      onSaveSession(chordCount, practiceTime);
+    }
+    
     setCurrentChordIndex(0);
     setTimeRemaining(config.duration);
     setChordCount(0);
@@ -103,6 +99,26 @@ export default function Training({ config, onStatsChange }: TrainingProps) {
     }
     setIsPaused(!isPaused);
   };
+
+  // Spacebar to pause/unpause
+  useEffect(() => {
+    const handleKeyPress = (e: KeyboardEvent) => {
+      // Only trigger if space is pressed and not in an input/textarea
+      if (e.code === 'Space' && 
+          e.target === document.body &&
+          !(e.target instanceof HTMLInputElement) &&
+          !(e.target instanceof HTMLTextAreaElement)) {
+        e.preventDefault();
+        if (isPaused) {
+          startTimeRef.current = Date.now() - practiceTime * 1000;
+        }
+        setIsPaused(!isPaused);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyPress);
+    return () => window.removeEventListener('keydown', handleKeyPress);
+  }, [isPaused, practiceTime]);
 
   if (chords.length === 0) {
     return (
