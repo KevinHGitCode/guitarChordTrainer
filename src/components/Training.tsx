@@ -143,16 +143,12 @@ export default function Training({ config, onStatsChange }: TrainingProps) {
           >
             {isPaused ? (
               <>
-                <svg viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M8 5v14l11-7z"/>
-                </svg>
+                <img src="https://api.iconify.design/heroicons:play-solid.svg?color=white" alt="play" className="control-icon" />
                 CONTINUAR
               </>
             ) : (
               <>
-                <svg viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/>
-                </svg>
+                <img src="https://api.iconify.design/heroicons:pause-solid.svg?color=white" alt="pause" className="control-icon" />
                 PAUSA
               </>
             )}
@@ -161,19 +157,14 @@ export default function Training({ config, onStatsChange }: TrainingProps) {
             className="control-button restart-button"
             onClick={restart}
           >
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/>
-              <path d="M21 3v5h-5"/>
-              <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/>
-              <path d="M3 21v-5h5"/>
-            </svg>
+            <img src="https://api.iconify.design/heroicons:arrow-path-solid.svg?color=white" alt="restart" className="control-icon" />
             REINICIAR
           </button>
         </div>
       </div>
 
-      <div className="chord-display">
-        <div className="chord-image-container">
+      <div className="chord-display-wrapper">
+        <div className="chord-display">
           <img
             src={currentChord.imageUrl}
             alt={currentChord.displayName}

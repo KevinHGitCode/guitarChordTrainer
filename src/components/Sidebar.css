@@ -44,13 +44,14 @@
   transform: scale(0.95);
 }
 
-.sidebar-toggle svg {
+.sidebar-toggle-icon {
   width: 20px;
   height: 20px;
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  filter: brightness(0) invert(1);
 }
 
-.sidebar-toggle.icon-rotated svg {
+.sidebar-toggle.icon-rotated .sidebar-toggle-icon {
   transform: rotate(180deg);
 }
 
@@ -63,14 +64,11 @@
   flex-direction: column;
   gap: 0.5rem;
   margin-top: 2.5rem;
-  opacity: 1;
-  transition: opacity 0.2s ease, transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.sidebar.collapsed .sidebar-nav {
-  opacity: 0;
-  transform: translateX(-20px);
-  pointer-events: none;
+.sidebar-nav.collapsed {
+  align-items: center;
 }
 
 .nav-button {
@@ -86,9 +84,27 @@
   display: flex;
   align-items: center;
   gap: 0.75rem;
+  width: 100%;
 }
 
-.nav-button svg {
+.sidebar-nav.collapsed .nav-button {
+  padding: 0.75rem;
+  justify-content: center;
+  width: auto;
+}
+
+.nav-button span {
+  white-space: nowrap;
+  transition: opacity 0.2s ease, width 0.3s ease;
+}
+
+.sidebar-nav.collapsed .nav-button span {
+  opacity: 0;
+  width: 0;
+  overflow: hidden;
+}
+
+.nav-icon {
   width: 20px;
   height: 20px;
   flex-shrink: 0;
@@ -98,10 +114,13 @@
 .nav-button:hover {
   background-color: #3a3a3a;
   border-color: #555;
+}
+
+.sidebar-nav:not(.collapsed) .nav-button:hover {
   transform: translateX(4px);
 }
 
-.nav-button:hover svg {
+.nav-button:hover .nav-icon {
   transform: scale(1.1);
 }
 
@@ -109,10 +128,13 @@
   background-color: #4a2a00;
   border-color: #8b5a00;
   color: #ffb366;
+}
+
+.sidebar-nav:not(.collapsed) .nav-button.active {
   transform: translateX(4px);
 }
 
-.nav-button.active svg {
+.nav-button.active .nav-icon {
   transform: scale(1.1);
 }
 
