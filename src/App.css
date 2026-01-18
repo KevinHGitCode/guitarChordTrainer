@@ -34,7 +34,6 @@
 .app-content {
   display: flex;
   flex: 1;
-  min-height: 0;
 }
 
 .main-panel {
@@ -46,15 +45,15 @@
 
 .training-panel {
   display: flex;
-  flex: 1;
-  gap: 2rem;
-  padding: 2rem;
+  gap: 1rem;
+  padding: 0.5rem;
   overflow: hidden;
+  min-height: 0;
 }
 
 .config-panel {
-  width: 350px;
-  min-width: 350px;
+  width: 280px;
+  min-width: 280px;
   display: flex;
   flex-direction: column;
   overflow-y: auto;

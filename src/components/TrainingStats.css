@@ -1,0 +1,30 @@
+.training-stats-panel {
+  display: flex;
+  gap: 0.5rem;
+  width: 100%;
+  margin-bottom: 0.75rem;
+}
+
+.training-stats-panel .stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.5rem 0.75rem;
+  background-color: #2a2a2a;
+  border: 2px solid #444;
+  border-radius: 6px;
+  gap: 0.25rem;
+  flex: 1;
+}
+
+.training-stats-panel .stat-label {
+  color: #888;
+  font-size: 0.7rem;
+}
+
+.training-stats-panel .stat-value {
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: bold;
+}
+

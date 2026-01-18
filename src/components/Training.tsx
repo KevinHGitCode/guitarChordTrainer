@@ -5,9 +5,10 @@ import './Training.css';
 
 interface TrainingProps {
   config: TrainingConfig;
+  onStatsChange: (chordCount: number, practiceTime: string) => void;
 }
 
-export default function Training({ config }: TrainingProps) {
+export default function Training({ config, onStatsChange }: TrainingProps) {
   const chords = useMemo<Chord[]>(() => 
     getChordsByConfig(config.scale, config.barreOption, config.selectedChords),
     [config.scale, config.barreOption, config.selectedChords]
@@ -66,6 +67,27 @@ export default function Training({ config }: TrainingProps) {
     }
   }, [chords]);
 
+  const formatTime = (seconds: number): string => {
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    const secs = seconds % 60;
+    if (hours > 0) {
+      return `${hours}:${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+    }
+    return `${minutes}:${secs.toString().padStart(2, '0')}`;
+  };
+
+  // Update stats in parent
+  useEffect(() => {
+    const hours = Math.floor(practiceTime / 3600);
+    const minutes = Math.floor((practiceTime % 3600) / 60);
+    const secs = practiceTime % 60;
+    const formattedTime = hours > 0
+      ? `${hours}:${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`
+      : `${minutes}:${secs.toString().padStart(2, '0')}`;
+    onStatsChange(chordCount, formattedTime);
+  }, [chordCount, practiceTime, onStatsChange]);
+
   const restart = () => {
     setCurrentChordIndex(0);
     setTimeRemaining(config.duration);
@@ -80,16 +102,6 @@ export default function Training({ config }: TrainingProps) {
       startTimeRef.current = Date.now() - practiceTime * 1000;
     }
     setIsPaused(!isPaused);
-  };
-
-  const formatTime = (seconds: number): string => {
-    const hours = Math.floor(seconds / 3600);
-    const minutes = Math.floor((seconds % 3600) / 60);
-    const secs = seconds % 60;
-    if (hours > 0) {
-      return `${hours}:${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-    }
-    return `${minutes}:${secs.toString().padStart(2, '0')}`;
   };
 
   if (chords.length === 0) {
@@ -108,14 +120,55 @@ export default function Training({ config }: TrainingProps) {
 
   return (
     <div className="training">
-      <div className="training-stats">
-        <div className="stat-item">
-          <span className="stat-label">Acordes practicados:</span>
-          <span className="stat-value">{chordCount}</span>
+      <div className="training-left">
+
+        <div className="chord-name-large">{currentChord.name}</div>
+        <div className="chord-name-full">{currentChord.displayName}</div>
+
+        <div className="timer-section">
+          <div className="timer-label">Tiempo restante:</div>
+          <div className="progress-bar-container">
+            <div
+              className="progress-bar"
+              style={{ width: `${progress}%` }}
+            />
+          </div>
+          <div className="timer-value">{timeRemaining}s</div>
         </div>
-        <div className="stat-item">
-          <span className="stat-label">Tiempo de práctica:</span>
-          <span className="stat-value">{formatTime(practiceTime)}</span>
+
+        <div className="training-controls">
+          <button
+            className={`control-button pause-button ${isPaused ? 'paused' : ''}`}
+            onClick={togglePause}
+          >
+            {isPaused ? (
+              <>
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M8 5v14l11-7z"/>
+                </svg>
+                CONTINUAR
+              </>
+            ) : (
+              <>
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/>
+                </svg>
+                PAUSA
+              </>
+            )}
+          </button>
+          <button
+            className="control-button restart-button"
+            onClick={restart}
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/>
+              <path d="M21 3v5h-5"/>
+              <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/>
+              <path d="M3 21v-5h5"/>
+            </svg>
+            REINICIAR
+          </button>
         </div>
       </div>
 
@@ -130,35 +183,6 @@ export default function Training({ config }: TrainingProps) {
             }}
           />
         </div>
-        
-        <div className="chord-name-large">{currentChord.name}</div>
-        <div className="chord-name-full">{currentChord.displayName}</div>
-      </div>
-
-      <div className="timer-section">
-        <div className="timer-label">Tiempo restante:</div>
-        <div className="progress-bar-container">
-          <div
-            className="progress-bar"
-            style={{ width: `${progress}%` }}
-          />
-        </div>
-        <div className="timer-value">{timeRemaining}s</div>
-      </div>
-
-      <div className="training-controls">
-        <button
-          className={`control-button pause-button ${isPaused ? 'paused' : ''}`}
-          onClick={togglePause}
-        >
-          {isPaused ? '▶ CONTINUAR' : 'II PAUSA'}
-        </button>
-        <button
-          className="control-button restart-button"
-          onClick={restart}
-        >
-          🔄 REINICIAR
-        </button>
       </div>
     </div>
   );

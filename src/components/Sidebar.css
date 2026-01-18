@@ -3,11 +3,12 @@
   background-color: #1a1a1a;
   border-right: 2px solid #333;
   padding: 1rem;
-  min-height: 100vh;
+  min-height: 100%;
   display: flex;
   flex-direction: column;
-  transition: width 0.3s ease;
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1), padding 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
+  overflow: hidden;
 }
 
 .sidebar.collapsed {
@@ -19,24 +20,38 @@
   position: absolute;
   top: 1rem;
   right: 0.5rem;
-  width: 30px;
-  height: 30px;
+  width: 32px;
+  height: 32px;
   background-color: #2a2a2a;
   border: 2px solid #444;
-  border-radius: 4px;
+  border-radius: 6px;
   color: #fff;
-  font-size: 0.9rem;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 10;
 }
 
 .sidebar-toggle:hover {
   background-color: #3a3a3a;
   border-color: #666;
+  transform: scale(1.05);
+}
+
+.sidebar-toggle:active {
+  transform: scale(0.95);
+}
+
+.sidebar-toggle svg {
+  width: 20px;
+  height: 20px;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sidebar-toggle.icon-rotated svg {
+  transform: rotate(180deg);
 }
 
 .sidebar.collapsed .sidebar-toggle {
@@ -48,6 +63,14 @@
   flex-direction: column;
   gap: 0.5rem;
   margin-top: 2.5rem;
+  opacity: 1;
+  transition: opacity 0.2s ease, transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sidebar.collapsed .sidebar-nav {
+  opacity: 0;
+  transform: translateX(-20px);
+  pointer-events: none;
 }
 
 .nav-button {
@@ -58,18 +81,38 @@
   color: #fff;
   font-size: 1rem;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   text-align: left;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.nav-button svg {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .nav-button:hover {
   background-color: #3a3a3a;
   border-color: #555;
+  transform: translateX(4px);
+}
+
+.nav-button:hover svg {
+  transform: scale(1.1);
 }
 
 .nav-button.active {
   background-color: #4a2a00;
   border-color: #8b5a00;
   color: #ffb366;
+  transform: translateX(4px);
+}
+
+.nav-button.active svg {
+  transform: scale(1.1);
 }
 
