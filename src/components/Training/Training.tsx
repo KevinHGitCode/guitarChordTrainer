@@ -6,7 +6,11 @@ import './Training.css';
 interface TrainingProps {
   config: TrainingConfig;
   onStatsChange: (chordCount: number, practiceTime: string) => void;
-  onSaveSession?: (chordCount: number, practiceTimeSeconds: number) => void;
+  onSaveSession?: (
+    chordCount: number,
+    practiceTimeSeconds: number,
+    chordStats: Record<string, number>
+  ) => void;
 }
 
 export default function Training({ config, onStatsChange, onSaveSession }: TrainingProps) {
@@ -21,11 +25,14 @@ export default function Training({ config, onStatsChange, onSaveSession }: Train
   const [hasStarted, setHasStarted] = useState(false);
   const [chordCount, setChordCount] = useState(0);
   const [practiceTime, setPracticeTime] = useState(0);
+  const [chordStats, setChordStats] = useState<Record<string, number>>({});
+  const [renderTrigger, setRenderTrigger] = useState(0);
 
   const intervalRef = useRef<number | null>(null);
   const timerRef = useRef<number | null>(null);
   const startTimeRef = useRef<number>(Date.now());
   const chordsRef = useRef<Chord[]>(chords);
+  const currentChordIndexRef = useRef(0);
 
   useEffect(() => {
     chordsRef.current = chords;
@@ -33,9 +40,20 @@ export default function Training({ config, onStatsChange, onSaveSession }: Train
 
   const nextChord = () => {
     if (chordsRef.current.length === 0) return;
-    setCurrentChordIndex((prev) => (prev + 1) % chordsRef.current.length);
+
+    const current = chordsRef.current[currentChordIndexRef.current].name;
+    console.log(`Contando acorde: ${current}`);
+
+    setChordStats(prev => ({
+      ...prev,
+      [current]: (prev[current] || 0) + 1
+    }));
+
+    currentChordIndexRef.current = (currentChordIndexRef.current + 1) % chordsRef.current.length;
+    setRenderTrigger(prev => prev + 1);
     setChordCount((prev) => prev + 1);
   };
+
 
   useEffect(() => {
     if (hasStarted && !isPaused && chords.length > 0) {
@@ -64,7 +82,8 @@ export default function Training({ config, onStatsChange, onSaveSession }: Train
 
   useEffect(() => {
     if (chords.length > 0) {
-      setCurrentChordIndex(0);
+      currentChordIndexRef.current = 0;
+      setRenderTrigger(prev => prev + 1);
     }
   }, [chords]);
 
@@ -81,15 +100,17 @@ export default function Training({ config, onStatsChange, onSaveSession }: Train
 
   const finalizarSesion = () => {
     if (onSaveSession && (chordCount > 0 || practiceTime > 0)) {
-      onSaveSession(chordCount, practiceTime);
+      onSaveSession(chordCount, practiceTime, chordStats);
     }
 
-    setCurrentChordIndex(0);
+    currentChordIndexRef.current = 0;
     setTimeRemaining(config.duration);
     setChordCount(0);
     setPracticeTime(0);
     setIsPaused(true);
     setHasStarted(false);
+    setChordStats({});
+    setRenderTrigger(prev => prev + 1);
   };
 
   const handleMainButton = () => {
@@ -136,7 +157,7 @@ export default function Training({ config, onStatsChange, onSaveSession }: Train
     );
   }
 
-  const currentChord = chords[currentChordIndex];
+  const currentChord = chords[currentChordIndexRef.current];
   const progress = ((config.duration - timeRemaining) / config.duration) * 100;
 
   let mainButtonText = 'INICIAR';

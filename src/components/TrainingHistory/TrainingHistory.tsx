@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import SessionSummary from '../SessionSummary/SessionSummary';
 import './TrainingHistory.css';
 
 interface TrainingSession {
@@ -8,6 +9,7 @@ interface TrainingSession {
   practiceTime: number;
   scale: string;
   difficulty: string;
+  chordStats?: Record<string, number>;
 }
 
 export default function TrainingHistory() {
@@ -15,6 +17,8 @@ export default function TrainingHistory() {
     const stored = localStorage.getItem('trainingSessions');
     return stored ? JSON.parse(stored) : [];
   });
+
+  const [selectedSession, setSelectedSession] = useState<TrainingSession | null>(null);
 
   useEffect(() => {
     const stored = localStorage.getItem('trainingSessions');
@@ -49,6 +53,19 @@ export default function TrainingHistory() {
       localStorage.removeItem('trainingSessions');
       setSessions([]);
     }
+  };
+
+  const deleteSession = (id: string) => {
+    if (!confirm('¿Eliminar esta sesión?')) return;
+
+    const updatedSessions = sessions.filter(s => s.id !== id);
+    setSessions(updatedSessions);
+    localStorage.setItem('trainingSessions', JSON.stringify(updatedSessions));
+  };
+
+  const viewSessionInConsole = (session: TrainingSession) => {
+    console.log('Sesión:', session);
+    setSelectedSession(session);
   };
 
   const totalChords = sessions.reduce((sum, session) => sum + session.chordCount, 0);
@@ -90,27 +107,56 @@ export default function TrainingHistory() {
           {sessions.map((session) => (
             <div key={session.id} className="session-card">
               <div className="session-date">{formatDate(session.date)}</div>
+
               <div className="session-details">
                 <div className="session-detail">
                   <span className="detail-label">Acordes:</span>
                   <span className="detail-value">{session.chordCount}</span>
                 </div>
+
                 <div className="session-detail">
                   <span className="detail-label">Tiempo:</span>
                   <span className="detail-value">{formatTime(session.practiceTime)}</span>
                 </div>
+
                 <div className="session-detail">
                   <span className="detail-label">Escala:</span>
                   <span className="detail-value">{session.scale}</span>
                 </div>
+
                 <div className="session-detail">
                   <span className="detail-label">Dificultad:</span>
                   <span className="detail-value">{session.difficulty}</span>
                 </div>
               </div>
+
+              <div className="session-actions">
+                {session.chordStats && Object.keys(session.chordStats).length > 0 && (
+                  <button
+                    className="view-session-button"
+                    onClick={() => viewSessionInConsole(session)}
+                  >
+                    Ver
+                  </button>
+                )}
+
+                <button
+                  className="delete-session-button"
+                  onClick={() => deleteSession(session.id)}
+                >
+                  Eliminar
+                </button>
+              </div>
             </div>
           ))}
         </div>
+      )}
+
+      {selectedSession && selectedSession.chordStats && (
+        <SessionSummary
+          chordStats={selectedSession.chordStats}
+          onClose={() => setSelectedSession(null)}
+        />
       )}
     </div>
   );

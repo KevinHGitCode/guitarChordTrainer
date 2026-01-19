@@ -9,39 +9,29 @@ import { chords } from '../chordData';
 type TrainingPageProps = {
   config: TrainingConfig;
   onConfigChange: (config: TrainingConfig) => void;
+  onSaveSession: (
+    chordCount: number,
+    practiceTimeSeconds: number,
+    chordStats: Record<string, number>
+  ) => void;
 };
 
-export default function TrainingPage({ config, onConfigChange }: TrainingPageProps) {
+export default function TrainingPage({ config, onConfigChange, onSaveSession }: TrainingPageProps) {
   const [chordCount, setChordCount] = useState(0);
   const [practiceTime, setPracticeTime] = useState('0:00');
+  
 
   const handleStatsChange = useCallback((count: number, time: string) => {
     setChordCount(count);
     setPracticeTime(time);
   }, []);
 
-  const saveTrainingSession = useCallback((chordCount: number, practiceTimeSeconds: number) => {
-    if (chordCount === 0 && practiceTimeSeconds === 0) return;
-    
-    const sessions = JSON.parse(localStorage.getItem('trainingSessions') || '[]');
-    const newSession = {
-      id: Date.now().toString(),
-      date: new Date().toISOString(),
-      chordCount,
-      practiceTime: practiceTimeSeconds,
-      scale: config.scale,
-      difficulty: config.barreOption
-    };
-    sessions.unshift(newSession);
-    localStorage.setItem('trainingSessions', JSON.stringify(sessions));
-  }, [config.scale, config.barreOption]);
-
   return (
     <div className="training-panel">
       <Training 
         config={config} 
         onStatsChange={handleStatsChange}
-        onSaveSession={saveTrainingSession}
+        onSaveSession={onSaveSession}
       />
       <div className="config-panel">
         <TrainingStats chordCount={chordCount} practiceTime={practiceTime} />

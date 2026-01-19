@@ -3,51 +3,238 @@
   padding: 2rem;
   overflow-y: auto;
   overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 2rem;
 }
 
 .chord-list-title {
-  color: #fff;
+  color: #66ccff;
   font-size: 2rem;
-  margin-bottom: 2rem;
-  text-align: center;
+  margin: 0;
+  text-shadow: 0 0 10px rgba(102, 204, 255, 0.3);
+  white-space: nowrap;
 }
 
+/* Barra de búsqueda */
+.search-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.search-input {
+  width: 300px;
+  padding: 10px 14px;
+  background-color: rgba(0, 0, 0, 0.4);
+  border: 2px solid #333;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #66ccff;
+  background-color: rgba(102, 204, 255, 0.05);
+  box-shadow: 0 0 10px rgba(102, 204, 255, 0.2);
+}
+
+.search-input::placeholder {
+  color: #666;
+}
+
+/* Contenedor de escalas */
+.scales-container {
+  flex: 1;
+}
+
+.no-results {
+  text-align: center;
+  color: #999;
+  padding: 3rem 1rem;
+  font-style: italic;
+}
+
+/* Sección de escala */
+.scale-section {
+  margin-bottom: 2rem;
+  background-color: rgba(0, 0, 0, 0.3);
+  border: 1px solid #333;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.scale-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-bottom: 2px solid #66ccff;
+}
+
+.scale-title-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.expand-button {
+  background: none;
+  border: none;
+  color: #66ccff;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.expand-button.expanded {
+  transform: rotate(90deg);
+}
+
+.expand-button:hover {
+  color: #00aabb;
+}
+
+.scale-title {
+  margin: 0;
+  color: #66ccff;
+  font-size: 1.3rem;
+}
+
+.chord-count {
+  color: #999;
+  font-size: 0.9rem;
+}
+
+/* Menú de tres puntos */
+.menu-container {
+  position: relative;
+}
+
+.menu-button {
+  background: none;
+  border: none;
+  color: #66ccff;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  transition: all 0.2s ease;
+}
+
+.menu-button:hover {
+  color: #00aabb;
+  transform: scale(1.1);
+}
+
+.menu-dropdown {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  background-color: #1a1a1a;
+  border: 1px solid #66ccff;
+  border-radius: 6px;
+  min-width: 180px;
+  z-index: 100;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  margin-top: 0.5rem;
+}
+
+.menu-item {
+  display: block;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: none;
+  border: none;
+  color: #fff;
+  text-align: left;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+  border-bottom: 1px solid #333;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.menu-item:last-child {
+  border-bottom: none;
+}
+
+.menu-item:hover {
+  background-color: rgba(102, 204, 255, 0.1);
+  color: #66ccff;
+}
+
+.menu-indicator {
+  color: #ffb366;
+  font-size: 0.8rem;
+  margin-left: 0.5rem;
+}
+
+.menu-check {
+  color: #66ccff;
+  font-size: 1rem;
+  margin-left: 0.5rem;
+}
+
+.menu-divider {
+  height: 1px;
+  background-color: #333;
+  margin: 0;
+}
+
+/* Grid de acordes */
 .chord-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 1.5rem;
-  max-width: 1200px;
-  margin: 0 auto;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 1rem;
+  padding: 1.5rem;
 }
 
 .chord-card {
-  background-color: #2a2a2a;
-  border: 2px solid #444;
+  background-color: rgba(0, 0, 0, 0.4);
+  border: 2px solid #333;
   border-radius: 8px;
-  padding: 1rem;
+  padding: 0.75rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.5rem;
   transition: all 0.3s;
+  cursor: pointer;
 }
 
 .chord-card:hover {
-  border-color: #666;
+  border-color: #66ccff;
+  background-color: rgba(102, 204, 255, 0.05);
   transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 12px rgba(102, 204, 255, 0.2);
 }
 
 .chord-card-image {
-  width: 150px;
-  height: 150px;
+  width: 120px;
+  height: 120px;
   background-color: #1a1a1a;
-  border: 2px solid #333;
+  border: 1px solid #333;
   border-radius: 6px;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0.5rem;
+  padding: 0.25rem;
 }
 
 .chord-card-img {
@@ -62,26 +249,28 @@
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
+  width: 100%;
 }
 
 .chord-card-name {
-  font-size: 2rem;
+  font-size: 1.2rem;
   font-weight: bold;
-  color: #ff4444;
+  color: #66ccff;
 }
 
 .chord-card-full-name {
-  font-size: 0.9rem;
-  color: #ccc;
+  font-size: 0.8rem;
+  color: #999;
 }
 
 .chord-card-barre {
   display: inline-block;
   margin-top: 0.25rem;
   padding: 0.25rem 0.5rem;
-  background-color: #4a2a00;
+  background-color: rgba(255, 179, 102, 0.2);
   color: #ffb366;
   border-radius: 4px;
-  font-size: 0.75rem;
+  font-size: 0.7rem;
+  border: 1px solid #ffb366;
 }
 

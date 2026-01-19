@@ -118,3 +118,38 @@
   font-weight: 600;
 }
 
+
+
+
+
+.session-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.view-session-button {
+  background: #444;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.delete-session-button {
+  background: #b00020;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.view-session-button:hover {
+  background: #666;
+}
+
+.delete-session-button:hover {
+  background: #d0002f;
+}

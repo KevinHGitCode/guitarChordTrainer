@@ -11,7 +11,7 @@ export const chords: Chord[] = [
   },
   {
     name: 'C#',
-    displayName: 'Do♯ Mayor (Cejilla)',
+    displayName: 'Do♯ Mayor',
     scale: 'Mayor',
     hasBarre: true,
     imageUrl: 'https://commons.wikimedia.org/wiki/Special:FilePath/C_sharp_major_chord_for_guitar.svg'
@@ -25,7 +25,7 @@ export const chords: Chord[] = [
   },
   {
     name: 'D#',
-    displayName: 'Re♯ Mayor (Cejilla)',
+    displayName: 'Re♯ Mayor',
     scale: 'Mayor',
     hasBarre: true,
     imageUrl: 'https://commons.wikimedia.org/wiki/Special:FilePath/D_sharp_major_chord_for_guitar.svg'
@@ -39,14 +39,14 @@ export const chords: Chord[] = [
   },
   {
     name: 'F',
-    displayName: 'Fa Mayor (Cejilla)',
+    displayName: 'Fa Mayor',
     scale: 'Mayor',
     hasBarre: true,
     imageUrl: 'https://commons.wikimedia.org/wiki/Special:FilePath/F_major_chord_for_guitar_(open).svg'
   },
   {
     name: 'F#',
-    displayName: 'Fa♯ Mayor (Cejilla)',
+    displayName: 'Fa♯ Mayor',
     scale: 'Mayor',
     hasBarre: true,
     imageUrl: 'https://commons.wikimedia.org/wiki/Special:FilePath/F_sharp_major_chord_for_guitar.svg'
@@ -60,7 +60,7 @@ export const chords: Chord[] = [
   },
   {
     name: 'G#',
-    displayName: 'Sol♯ Mayor (Cejilla)',
+    displayName: 'Sol♯ Mayor',
     scale: 'Mayor',
     hasBarre: true,
     imageUrl: 'https://commons.wikimedia.org/wiki/Special:FilePath/G_sharp_major_chord_for_guitar.svg'
@@ -74,7 +74,7 @@ export const chords: Chord[] = [
   },
   {
     name: 'A#',
-    displayName: 'La♯ Mayor (Cejilla)',
+    displayName: 'La♯ Mayor',
     scale: 'Mayor',
     hasBarre: true,
     imageUrl: 'https://commons.wikimedia.org/wiki/Special:FilePath/B_flat_(A_sharp)_major_chord_for_guitar.svg'
@@ -96,7 +96,7 @@ export const chords: Chord[] = [
   },
   {
     name: 'C#m',
-    displayName: 'Do♯ Menor (Cejilla)',
+    displayName: 'Do♯ Menor',
     scale: 'Menor',
     hasBarre: true,
     imageUrl: 'https://commons.wikimedia.org/wiki/Special:FilePath/C_sharp_%28D_flat%29_minor_chord_for_guitar_(open).svg'
@@ -110,7 +110,7 @@ export const chords: Chord[] = [
   },
   {
     name: 'D#m',
-    displayName: 'Re♯ Menor (Cejilla)',
+    displayName: 'Re♯ Menor',
     scale: 'Menor',
     hasBarre: true,
     imageUrl: 'https://commons.wikimedia.org/wiki/Special:FilePath/D_sharp_(E_flat)_minor_chord_for_guitar.svg'
@@ -124,28 +124,28 @@ export const chords: Chord[] = [
   },
   {
     name: 'Fm',
-    displayName: 'Fa Menor (Cejilla)',
+    displayName: 'Fa Menor',
     scale: 'Menor',
     hasBarre: true,
     imageUrl: 'https://commons.wikimedia.org/wiki/Special:FilePath/F_minor_chord_for_guitar.svg'
   },
   {
     name: 'F#m',
-    displayName: 'Fa♯ Menor (Cejilla)',
+    displayName: 'Fa♯ Menor',
     scale: 'Menor',
     hasBarre: true,
     imageUrl: 'https://commons.wikimedia.org/wiki/Special:FilePath/F_sharp_(G_flat)_minor_chord_for_guitar.svg'
   },
   {
     name: 'Gm',
-    displayName: 'Sol Menor (Cejilla)',
+    displayName: 'Sol Menor',
     scale: 'Menor',
     hasBarre: true,
     imageUrl: 'https://commons.wikimedia.org/wiki/Special:FilePath/G_minor_chord_for_guitar.svg'
   },
   {
     name: 'G#m',
-    displayName: 'Sol♯ Menor (Cejilla)',
+    displayName: 'Sol♯ Menor',
     scale: 'Menor',
     hasBarre: true,
     imageUrl: 'https://commons.wikimedia.org/wiki/Special:FilePath/G_sharp_(A_flat)_minor_chord_for_guitar.svg'
@@ -159,14 +159,14 @@ export const chords: Chord[] = [
   },
   {
     name: 'A#m',
-    displayName: 'La♯ Menor (Cejilla)',
+    displayName: 'La♯ Menor',
     scale: 'Menor',
     hasBarre: true,
     imageUrl: 'https://commons.wikimedia.org/wiki/Special:FilePath/A_sharp_(B_flat)_minor_chord_for_guitar.svg'
   },
   {
     name: 'Bm',
-    displayName: 'Si Menor (Cejilla)',
+    displayName: 'Si Menor',
     scale: 'Menor',
     hasBarre: true,
     imageUrl: 'https://commons.wikimedia.org/wiki/Special:FilePath/B_minor_chord_for_guitar.svg'
