@@ -25,10 +25,7 @@ function App() {
         </header>
 
         <div className="app-content">
-          <Sidebar 
-            collapsed={sidebarCollapsed}
-            onToggleCollapse={() => setSidebarCollapsed(!sidebarCollapsed)}
-          />
+          <Sidebar collapsed={sidebarCollapsed} onToggleCollapse={() => setSidebarCollapsed(!sidebarCollapsed)} />
           
           <div className="main-panel">
             <Routes>

@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import type { Chord } from '../../types';
 import './ChordList.css';
 
@@ -7,13 +8,28 @@ interface ChordListProps {
 }
 
 export default function ChordList({ chords, scale }: ChordListProps) {
-  const filteredChords = chords.filter(
-    chord => scale === 'Ambos' || chord.scale === scale
-  );
+  const [hideSharps, setHideSharps] = useState(false);
+
+  const filteredChords = chords.filter(chord => {
+    const matchesScale = scale === 'Ambos' || chord.scale === scale;
+    const noSharps = hideSharps ? !chord.name.includes('#') : true;
+    return matchesScale && noSharps;
+  });
 
   return (
     <div className="chord-list-container">
       <h2 className="chord-list-title">Lista de Acordes</h2>
+
+      {/* Checkbox */}
+      <label className="sharp-filter">
+        <input
+          type="checkbox"
+          checked={hideSharps}
+          onChange={() => setHideSharps(!hideSharps)}
+        />
+        Ocultar sostenidos (#)
+      </label>
+
       <div className="chord-grid">
         {filteredChords.map((chord) => (
           <div key={chord.name} className="chord-card">
@@ -23,7 +39,8 @@ export default function ChordList({ chords, scale }: ChordListProps) {
                 alt={chord.displayName}
                 className="chord-card-img"
                 onError={(e) => {
-                  (e.target as HTMLImageElement).src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTUwIiBoZWlnaHQ9IjE1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTUwIiBoZWlnaHQ9IjE1MCIgZmlsbD0iIzMzMyIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LXNpemU9IjE0IiBmaWxsPSIjNjY2IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjNlbSI+QWNvcmRlPC90ZXh0Pjwvc3ZnPg==';
+                  (e.target as HTMLImageElement).src =
+                    'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTUwIiBoZWlnaHQ9IjE1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTUwIiBoZWlnaHQ9IjE1MCIgZmlsbD0iIzMzMyIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LXNpemU9IjE0IiBmaWxsPSIjNjY2IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjNlbSI+QWNvcmRlPC90ZXh0Pjwvc3ZnPg==';
                 }}
               />
             </div>
@@ -40,4 +57,3 @@ export default function ChordList({ chords, scale }: ChordListProps) {
     </div>
   );
 }
-
