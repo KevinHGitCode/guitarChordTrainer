@@ -34,6 +34,17 @@
   margin-bottom: 0.35rem;
   color: #ccc;
   font-size: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.filter-indicator {
+  font-size: 0.65rem;
+  color: #66ccff;
+  display: inline-flex;
+  align-items: center;
+  margin-left: 0.25rem;
 }
 
 .config-group select {
@@ -55,6 +66,11 @@
 .config-group select:focus {
   outline: none;
   border-color: #8b5a00;
+}
+
+.duration-value {
+  color: #66ccff;
+  font-weight: 600;
 }
 
 .duration-slider {
@@ -95,3 +111,44 @@
   background: #b87000;
 }
 
+.test-config-button {
+  width: 100%;
+  padding: 0.6rem;
+  background: linear-gradient(135deg, #4a7c8f 0%, #2a5c7f 100%);
+  border: 2px solid #66ccff;
+  border-radius: 4px;
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.test-config-button:hover {
+  background: linear-gradient(135deg, #5a8c9f 0%, #3a6c8f 100%);
+  box-shadow: 0 0 10px rgba(102, 204, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+.test-config-button:active {
+  transform: translateY(0);
+}
+
+.advanced-config-button {
+  width: 100%;
+  padding: 0.6rem;
+  background-color: #2a4a5a;
+  border: 2px solid #4a7c8f;
+  border-radius: 4px;
+  color: #ccc;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.advanced-config-button:hover {
+  background-color: #2a5a6a;
+  border-color: #66ccff;
+  color: #fff;
+}

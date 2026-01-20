@@ -1,18 +1,30 @@
-import type { TrainingConfig, Scale, BarreOption } from '../../types';
+import type { TrainingConfig, Scale } from '../../types';
 import './Configuration.css';
 
 interface ConfigurationProps {
   config: TrainingConfig;
   onConfigChange: (config: TrainingConfig) => void;
+  onOpenAdvanced: () => void;
 }
 
-export default function Configuration({ config, onConfigChange }: ConfigurationProps) {
-  const handleChange = (field: keyof TrainingConfig, value: string | number) => {
+export default function Configuration({ config, onConfigChange, onOpenAdvanced }: ConfigurationProps) {
+  const handleScaleChange = (scale: Scale) => {
     onConfigChange({
       ...config,
-      [field]: value
+      scale,
+      selectedChords: undefined, // limpiar acordes personalizados
+      configName: undefined // limpiar el nombre de configuración guardada
     });
   };
+
+  const handleDurationChange = (duration: number) => {
+    onConfigChange({
+      ...config,
+      duration
+    });
+  };
+
+
 
   return (
     <div className="configuration">
@@ -20,35 +32,38 @@ export default function Configuration({ config, onConfigChange }: ConfigurationP
         <img src="https://api.iconify.design/heroicons:cog-6-tooth-solid.svg?color=white" alt="config" className="config-icon" />
         Configuración
       </h3>
-      
+
       <div className="config-group">
-        <label htmlFor="scale">Escala:</label>
+        <label htmlFor="scale">
+          Escala:
+          {(config.barreFilter && config.barreFilter !== 'none') || (config.sharpsFilter && config.sharpsFilter !== 'none') ? (
+            <span className="filter-indicator" title="Filtros superficiales activos">🔍</span>
+          ) : null}
+        </label>
         <select
           id="scale"
-          value={config.scale}
-          onChange={(e) => handleChange('scale', e.target.value as Scale)}
+          value={config.configName ? 'config' : (config.selectedChords && config.selectedChords.length > 0 ? 'Personalizada' : config.scale)}
+          onChange={(e) => {
+            const value = e.target.value;
+            if (value !== 'Personalizada' && value !== 'config') {
+              handleScaleChange(value as Scale);
+            }
+          }}
         >
           <option value="Mayor">Mayor</option>
           <option value="Menor">Menor</option>
-        </select>
-      </div>
-
-      <div className="config-group">
-        <label htmlFor="barreOption">Dificultad:</label>
-        <select
-          id="barreOption"
-          value={config.barreOption}
-          onChange={(e) => handleChange('barreOption', e.target.value as BarreOption)}
-        >
-          <option value="Sin cejilla">Fácil (Sin cejilla)</option>
-          <option value="Con cejilla">Intermedio (Con cejilla)</option>
-          <option value="Ambos">Ambos</option>
+          {config.configName && (
+            <option value="config">{config.configName}</option>
+          )}
+          {!config.configName && config.selectedChords && config.selectedChords.length > 0 && (
+            <option value="Personalizada">Personalizada</option>
+          )}
         </select>
       </div>
 
       <div className="config-group">
         <label htmlFor="duration">
-          Duración del acorde (segundos): {config.duration}
+          Duración del acorde (segundos): <span className="duration-value">{config.duration}</span>
         </label>
         <input
           type="range"
@@ -56,9 +71,18 @@ export default function Configuration({ config, onConfigChange }: ConfigurationP
           min="1"
           max="60"
           value={config.duration}
-          onChange={(e) => handleChange('duration', parseInt(e.target.value))}
+          onChange={(e) => handleDurationChange(parseInt(e.target.value))}
           className="duration-slider"
         />
+      </div>
+
+      <div className="config-group">
+        <button
+          className="advanced-config-button"
+          onClick={onOpenAdvanced}
+        >
+          ⚙️ Configuración Avanzada
+        </button>
       </div>
     </div>
   );

@@ -4,7 +4,6 @@ import Training from '../components/Training/Training';
 import TrainingStats from '../components/TrainingStats/TrainingStats';
 import Configuration from '../components/Configuration/Configuration';
 import AdvancedConfiguration from '../components/AdvancedConfiguration/AdvancedConfiguration';
-import { chords } from '../chordData';
 
 type TrainingPageProps = {
   config: TrainingConfig;
@@ -35,19 +34,16 @@ export default function TrainingPage({ config, onConfigChange, onSaveSession }: 
       />
       <div className="config-panel">
         <TrainingStats chordCount={chordCount} practiceTime={practiceTime} />
-        <Configuration config={config} onConfigChange={onConfigChange} />
-        <button 
-          className="open-advanced-button"
-          onClick={() => setShowAdvancedConfig(true)}
-        >
-          ⚙ Configuración Avanzada
-        </button>
+        <Configuration 
+          config={config} 
+          onConfigChange={onConfigChange}
+          onOpenAdvanced={() => setShowAdvancedConfig(true)}
+        />
       </div>
 
       <AdvancedConfiguration
         config={config}
         onConfigChange={onConfigChange}
-        chords={chords}
         isOpen={showAdvancedConfig}
         onClose={() => setShowAdvancedConfig(false)}
       />

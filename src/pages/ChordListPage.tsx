@@ -7,5 +7,5 @@ type ChordListPageProps = {
 };
 
 export default function ChordListPage({ config }: ChordListPageProps) {
-  return <ChordList chords={chords} scale={config.scale} />;
+  return <ChordList chords={chords} />;
 }

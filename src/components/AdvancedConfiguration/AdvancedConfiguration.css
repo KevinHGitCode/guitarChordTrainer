@@ -86,16 +86,83 @@
 .modal-content {
   flex: 1;
   overflow-y: auto;
-  padding: 2rem;
+  padding: 1.25rem;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1rem;
+}
+
+/* Sección de Filtros */
+.filters-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.75rem;
+  background-color: rgba(0, 0, 0, 0.3);
+  border: 1px solid #333;
+  border-radius: 8px;
+}
+
+.filters-section h4 {
+  margin: 0;
+  color: #66ccff;
+  font-size: 1rem;
+}
+
+.filter-hint {
+  margin: 0;
+  color: #999;
+  font-size: 0.75rem;
+  font-style: italic;
+}
+
+.filter-group {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.filter-label {
+  color: #aaa;
+  font-size: 0.85rem;
+  font-weight: 500;
+  white-space: nowrap;
+  min-width: 80px;
+}
+
+.radio-group {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.radio-label {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: #ddd;
+  font-size: 0.8rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+.radio-label input[type="radio"] {
+  cursor: pointer;
+  accent-color: #66ccff;
+  width: 14px;
+  height: 14px;
 }
 
 .chord-selector {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 0.75rem;
+}
+
+.chord-selector h4 {
+  margin: 0;
+  color: #66ccff;
+  font-size: 1rem;
 }
 
 .chord-selector h4,
@@ -110,8 +177,8 @@
 .chord-checkboxes {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 0.75rem;
-  padding: 1rem;
+  gap: 0.25rem;
+  padding: .75rem;
   background-color: rgba(0, 0, 0, 0.4);
   border: 1px solid #333;
   border-radius: 8px;
@@ -153,7 +220,6 @@
   font-size: 0.9rem;
   cursor: pointer;
   transition: all 0.3s;
-  align-self: flex-start;
 }
 
 .clear-button:hover:not(:disabled) {
@@ -166,9 +232,73 @@
   cursor: not-allowed;
 }
 
+.selection-controls {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.test-config-button {
+  padding: 0.75rem 1.5rem;
+  background: linear-gradient(135deg, #4a7c8f 0%, #2a5c7f 100%);
+  border: 2px solid #66ccff;
+  border-radius: 6px;
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  align-self: flex-start;
+}
+
+.test-config-button:hover {
+  background: linear-gradient(135deg, #5a8c9f 0%, #3a6c8f 100%);
+  box-shadow: 0 0 10px rgba(102, 204, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+.test-config-button:active {
+  transform: translateY(0);
+}
+
+.chord-checkboxes {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 0.75rem;
+}
+
+.chord-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  color: #ddd;
+  font-size: 1rem;
+  cursor: pointer;
+  user-select: none;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+
+.chord-checkbox:hover {
+  background-color: rgba(102, 204, 255, 0.1);
+}
+
+.chord-checkbox.filtered {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.chord-checkbox input[type="checkbox"] {
+  cursor: pointer;
+  accent-color: #66ccff;
+  width: 18px;
+  height: 18px;
+}
+
 .selected-count {
   color: #66ccff;
   font-size: 0.95rem;
+  text-align: right;
   margin: 0;
 }
 
@@ -234,9 +364,6 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 1rem;
-}
-  flex-direction: column;
-  gap: 0.75rem;
 }
 
 .saved-config-item {
@@ -362,12 +489,5 @@
 .open-advanced-button:hover {
   background-color: rgba(102, 204, 255, 0.2);
   box-shadow: 0 0 15px rgba(102, 204, 255, 0.3);
-}
-  border: 2px solid #8b0000;
-}
-
-.delete-button:hover {
-  background-color: #5a0000;
-  border-color: #aa0000;
 }
 

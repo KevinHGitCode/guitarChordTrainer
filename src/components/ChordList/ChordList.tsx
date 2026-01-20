@@ -6,7 +6,6 @@ import './ChordList.css';
 
 interface ChordListProps {
   chords: Chord[];
-  scale: string;
 }
 
 interface ScaleSectionData {
@@ -25,7 +24,7 @@ interface ScaleSectionData {
  * 
  * NO renderiza detalles específicos, solo coordina
  */
-export default function ChordList({ chords, scale }: ChordListProps) {
+export default function ChordList({ chords }: ChordListProps) {
   // =====================
   // ESTADO GLOBAL
   // =====================

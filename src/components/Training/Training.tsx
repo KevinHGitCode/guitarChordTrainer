@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, useMemo } from 'react';
 import type { Chord, TrainingConfig } from '../../types';
-import { getChordsByConfig } from '../../chordData';
+import { getChordsByConfig, applySuperficialFilters } from '../../chordData';
 import './Training.css';
 
 interface TrainingProps {
@@ -14,9 +14,11 @@ interface TrainingProps {
 }
 
 export default function Training({ config, onStatsChange, onSaveSession }: TrainingProps) {
-  const chords = useMemo<Chord[]>(() => 
-    getChordsByConfig(config.scale, config.barreOption, config.selectedChords),
-    [config.scale, config.barreOption, config.selectedChords]
+  const chords = useMemo<Chord[]>(() => {
+    const baseChords = getChordsByConfig(config.scale, config.selectedChords);
+    return applySuperficialFilters(baseChords, config.barreFilter, config.sharpsFilter);
+  },
+    [config.scale, config.selectedChords, config.barreFilter, config.sharpsFilter]
   );
 
   const [currentChordIndex, setCurrentChordIndex] = useState(0);

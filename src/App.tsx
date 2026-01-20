@@ -12,9 +12,9 @@ function App() {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(true);
   const [config, setConfig] = useState<TrainingConfig>({
     scale: 'Mayor',
-    barreOption: 'Con cejilla',
     duration: 15
   });
+  
   const saveTrainingSession = useCallback((
     chordCount: number,
     practiceTimeSeconds: number,
@@ -30,13 +30,12 @@ function App() {
       chordCount,
       practiceTime: practiceTimeSeconds,
       scale: config.scale,
-      difficulty: config.barreOption,
       chordStats
     };
 
     sessions.unshift(newSession);
     localStorage.setItem('trainingSessions', JSON.stringify(sessions));
-  }, [config.scale, config.barreOption]);
+  }, [config.scale]);
 
 
 

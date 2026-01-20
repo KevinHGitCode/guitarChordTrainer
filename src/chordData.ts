@@ -175,7 +175,6 @@ export const chords: Chord[] = [
 
 export const getChordsByConfig = (
   scale: string,
-  barreOption: string,
   selectedChords?: string[]
 ): Chord[] => {
   let filtered = chords;
@@ -185,17 +184,33 @@ export const getChordsByConfig = (
     filtered = filtered.filter(chord => chord.scale === scale);
   }
 
-  // Filter by barre option
-  if (barreOption === 'Con cejilla') {
-    filtered = filtered.filter(chord => chord.hasBarre);
-  } else if (barreOption === 'Sin cejilla') {
-    filtered = filtered.filter(chord => !chord.hasBarre);
-  }
-  // 'Ambos' includes all
-
   // Filter by selected chords (custom config)
   if (selectedChords && selectedChords.length > 0) {
     filtered = filtered.filter(chord => selectedChords.includes(chord.name));
+  }
+
+  return filtered;
+};
+
+export const applySuperficialFilters = (
+  chordsToFilter: Chord[],
+  barreFilter?: 'none' | 'exclude-barre' | 'only-barre',
+  sharpsFilter?: 'none' | 'exclude-sharps' | 'only-sharps'
+): Chord[] => {
+  let filtered = chordsToFilter;
+
+  // Apply barre filter
+  if (barreFilter === 'exclude-barre') {
+    filtered = filtered.filter(chord => !chord.hasBarre);
+  } else if (barreFilter === 'only-barre') {
+    filtered = filtered.filter(chord => chord.hasBarre);
+  }
+
+  // Apply sharps filter
+  if (sharpsFilter === 'exclude-sharps') {
+    filtered = filtered.filter(chord => !chord.name.includes('#'));
+  } else if (sharpsFilter === 'only-sharps') {
+    filtered = filtered.filter(chord => chord.name.includes('#'));
   }
 
   return filtered;

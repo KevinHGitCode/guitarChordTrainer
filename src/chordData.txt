@@ -1,0 +1,5 @@
+Escala Mayor:
+Do  Do#  Re  Re#  Mi  Fa  Fa#  Sol  Sol#  La  La#  Si
+
+Escala Menor:
+La  La#  Si  Do  Do#  Re  Re#  Mi  Fa  Fa#  Sol  Sol#

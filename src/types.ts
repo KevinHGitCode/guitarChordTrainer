@@ -2,8 +2,6 @@ console.log("Types loaded");
 
 
 export type Scale = 'Mayor' | 'Menor';
-export type Difficulty = 'Fácil' | 'Intermedio' | 'Avanzado' | 'Personalizado';
-export type BarreOption = 'Con cejilla' | 'Sin cejilla' | 'Ambos';
 
 export interface Chord {
   name: string;
@@ -15,10 +13,11 @@ export interface Chord {
 
 export interface TrainingConfig {
   scale: Scale;
-  barreOption: BarreOption;
   duration: number;
   selectedChords?: string[]; // chord names for custom config
-  difficulty?: Difficulty;
+  configName?: string; // name of loaded saved config
+  barreFilter?: 'none' | 'exclude-barre' | 'only-barre'; // visual filter for barre chords
+  sharpsFilter?: 'none' | 'exclude-sharps' | 'only-sharps'; // visual filter for sharps
 }
 
 export interface SavedConfig extends TrainingConfig {

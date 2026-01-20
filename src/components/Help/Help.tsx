@@ -27,7 +27,6 @@ export default function Help() {
           <h3 className="help-subtitle">Características</h3>
           <ul className="features-list">
             <li>Practica acordes mayores y menores</li>
-            <li>Selecciona dificultad (con o sin cejilla)</li>
             <li>Configura la duración de cada acorde (1-60 segundos)</li>
             <li>Guarda hasta 5 configuraciones personalizadas</li>
             <li>Registra tus entrenamientos y estadísticas</li>

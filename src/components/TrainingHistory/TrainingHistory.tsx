@@ -125,7 +125,6 @@ export default function TrainingHistory() {
                 </div>
 
                 <div className="session-detail">
-                  <span className="detail-label">Dificultad:</span>
                   <span className="detail-value">{session.difficulty}</span>
                 </div>
               </div>
