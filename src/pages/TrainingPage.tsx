@@ -19,7 +19,7 @@ type TrainingPageProps = {
 export default function TrainingPage({ config, onConfigChange, onSaveSession }: TrainingPageProps) {
   const [chordCount, setChordCount] = useState(0);
   const [practiceTime, setPracticeTime] = useState('0:00');
-  
+  const [showAdvancedConfig, setShowAdvancedConfig] = useState(false);
 
   const handleStatsChange = useCallback((count: number, time: string) => {
     setChordCount(count);
@@ -36,12 +36,21 @@ export default function TrainingPage({ config, onConfigChange, onSaveSession }: 
       <div className="config-panel">
         <TrainingStats chordCount={chordCount} practiceTime={practiceTime} />
         <Configuration config={config} onConfigChange={onConfigChange} />
-        <AdvancedConfiguration
-          config={config}
-          onConfigChange={onConfigChange}
-          chords={chords}
-        />
+        <button 
+          className="open-advanced-button"
+          onClick={() => setShowAdvancedConfig(true)}
+        >
+          ⚙ Configuración Avanzada
+        </button>
       </div>
+
+      <AdvancedConfiguration
+        config={config}
+        onConfigChange={onConfigChange}
+        chords={chords}
+        isOpen={showAdvancedConfig}
+        onClose={() => setShowAdvancedConfig(false)}
+      />
     </div>
   );
 }

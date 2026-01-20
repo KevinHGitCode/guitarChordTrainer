@@ -6,18 +6,21 @@ interface AdvancedConfigurationProps {
   config: TrainingConfig;
   onConfigChange: (config: TrainingConfig) => void;
   chords: Chord[];
+  isOpen: boolean;
+  onClose: () => void;
 }
 
 export default function AdvancedConfiguration({
   config,
   onConfigChange,
-  chords
+  chords,
+  isOpen,
+  onClose
 }: AdvancedConfigurationProps) {
   const [savedConfigs, setSavedConfigs] = useState<SavedConfig[]>(() => {
     const stored = localStorage.getItem('savedChordConfigs');
     return stored ? JSON.parse(stored) : [];
   });
-  const [showAdvanced, setShowAdvanced] = useState(false);
   const [selectedChords, setSelectedChords] = useState<string[]>(
     config.selectedChords || []
   );
@@ -77,19 +80,22 @@ export default function AdvancedConfiguration({
     setSelectedChords([]);
   };
 
-  return (
-    <div className="advanced-configuration">
-      <button
-        className="toggle-advanced"
-        onClick={() => setShowAdvanced(!showAdvanced)}
-      >
-        {showAdvanced ? '▼' : '▶'} Configuración Avanzada
-      </button>
+  if (!isOpen) return null;
 
-      {showAdvanced && (
-        <div className="advanced-content">
+  return (
+    <div className="advanced-configuration-overlay">
+      <div className="advanced-configuration-modal">
+        <div className="modal-header">
+          <h2>Configuración Avanzada</h2>
+          <button className="close-button" onClick={onClose}>✕</button>
+        </div>
+
+        <div className="modal-content">
           <div className="chord-selector">
             <h4>Seleccionar Acordes:</h4>
+            <button className="clear-button" onClick={clearSelection}>
+              Limpiar Selección
+            </button>
             <div className="chord-checkboxes">
               {chords.map(chord => (
                 <label key={chord.name} className="chord-checkbox">
@@ -102,13 +108,6 @@ export default function AdvancedConfiguration({
                 </label>
               ))}
             </div>
-            <button
-              className="clear-button"
-              onClick={clearSelection}
-              disabled={selectedChords.length === 0}
-            >
-              Limpiar Selección
-            </button>
             {selectedChords.length > 0 && (
               <p className="selected-count">
                 {selectedChords.length} acorde(s) seleccionado(s)
@@ -169,7 +168,13 @@ export default function AdvancedConfiguration({
             </div>
           )}
         </div>
-      )}
+
+        <div className="modal-footer">
+          <button className="close-modal-button" onClick={onClose}>
+            Cerrar
+          </button>
+        </div>
+      </div>
     </div>
   );
 }
